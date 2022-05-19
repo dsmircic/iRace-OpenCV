@@ -19,7 +19,7 @@ gray_blurred = cv2.blur(gray, (3, 3))
 
 # Apply Hough transform on the blurred image.
 detected_circles = cv2.HoughCircles(gray_blurred,
-				cv2.HOUGH_GRADIENT, 3, 5, param1 = 50,
+				cv2.HOUGH_GRADIENT, dp = 3, minDist = 5, param1 = 50,
 			param2 = 30, minRadius = 100, maxRadius = 200)
 
 # Draw circles that are detected.
