@@ -1,0 +1,4 @@
+Example configuration scenario: OpenCV
+=====================================
+
+This example shows how iRace can be used to find circles with known radiuses, without knowing the actual parameters for the searching algorithm.
