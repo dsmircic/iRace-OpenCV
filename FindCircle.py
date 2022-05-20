@@ -92,13 +92,3 @@ if __name__ == "__main__":
 		maxRadius=args.maxRadius,
 		datfile=args.datFile
 	)
-
-	findCircle(
-		dp = 1,
-		minDist = 20,
-		param1=60,
-		param2=30,
-		minRadius=20,
-		maxRadius=200,
-		datfile="c123.dat"
-	)
