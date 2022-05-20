@@ -1,0 +1,8 @@
+#!/bin/bash
+echo "Enter image name: "
+read imageName
+
+python3 imageCreator.py $imageName
+python3 tester.py $imageName
+Rscript iRace/iRace-run.R
+python3 tester.py $imageName

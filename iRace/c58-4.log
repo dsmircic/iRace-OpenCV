@@ -1,7 +1,0 @@
-ImportError: numpy.core.multiarray failed to import
-Traceback (most recent call last):
-  File "../FindCircle.py", line 1, in <module>
-    import cv2
-  File "/home/dino/.local/lib/python3.8/site-packages/cv2/__init__.py", line 8, in <module>
-    from .cv2 import *
-ImportError: numpy.core.multiarray failed to import

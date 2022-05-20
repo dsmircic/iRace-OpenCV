@@ -4,7 +4,7 @@ import numpy as np
 import logging
 import os
 
-CIRCLE_RADIUS = 150
+CIRCLE_RADIUS = 50
 NOT_REALLY_USEFUL = 0
 WORKING_DIRECTORY = os.getcwd()
 
@@ -26,7 +26,8 @@ def findCircle (dp: int, minDist: int, param1: int, param2: int, minRadius: int,
 	if detectedCircles is not None:
 		detectedCircles = np.uint16(np.around(detectedCircles))
 
-		rSum = 0
+		# rSum = 0
+		rList = list()
 		cnt = 0
 
 		for pt in detectedCircles[0, :]:
@@ -34,23 +35,30 @@ def findCircle (dp: int, minDist: int, param1: int, param2: int, minRadius: int,
 			# the third parameter represents the radius
 			r = pt[2]
 
-			rSum += r
+			# rSum += r
+			rList.append(r)
 			cnt += 1
 
-		radiusAverage = rSum / cnt
-		error = abs(radiusAverage - CIRCLE_RADIUS)
+		# radiusAverage = rSum / cnt
+		minFound = min(rList)
+		error = abs(minFound - CIRCLE_RADIUS)
 		result = ((CIRCLE_RADIUS - error) / CIRCLE_RADIUS) * (100 / cnt)
 
-		with open(datfile, 'w') as file:
-			# rSum / cnt represents the average circle radius from the search algorithm
-			# CIRCLE_RADIUS is the radius of the circle we are trying to find
-			# result represents the score of each run, ideally we want the error to be 0, then the result would be 100
-				# 100 represents the perfect score
-				# score gets diminished if the program generated multiple circles, ideally we want only one
-			# the result of running an instance must be written into the file given with the parameter --datfile
-				# so iRace can determine which results it needs to discard
-				# ideally, we want our score to be as close to a 100 as possible
-			file.write(str(result))
+		if (result < 0):
+			with open(datfile, 'w') as file:
+				file.write(str(NOT_REALLY_USEFUL))
+
+		else:
+			with open(datfile, 'w') as file:
+				# rSum / cnt represents the average circle radius from the search algorithm
+				# CIRCLE_RADIUS is the radius of the circle we are trying to find
+				# result represents the score of each run, ideally we want the error to be 0, then the result would be 100
+					# 100 represents the perfect score
+					# score gets diminished if the program generated multiple circles, ideally we want only one
+				# the result of running an instance must be written into the file given with the parameter --datfile
+					# so iRace can determine which results it needs to discard
+					# ideally, we want our score to be as close to a 100 as possible
+				file.write(str(result))
 		
 	else:
 		with open(datfile, 'w') as file:
@@ -83,4 +91,14 @@ if __name__ == "__main__":
 		minRadius=args.minRadius,
 		maxRadius=args.maxRadius,
 		datfile=args.datFile
+	)
+
+	findCircle(
+		dp = 1,
+		minDist = 20,
+		param1=60,
+		param2=30,
+		minRadius=20,
+		maxRadius=200,
+		datfile="c123.dat"
 	)
